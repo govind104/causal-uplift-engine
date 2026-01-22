@@ -1,0 +1,27 @@
+# Dockerfile.dashboard
+FROM python:3.10-slim
+
+# Install uv for fast dependency management
+ENV UV_SYSTEM_PYTHON=1
+RUN pip install uv
+
+WORKDIR /app
+
+# Copy dependency files first
+COPY pyproject.toml uv.lock ./
+
+# Install dependencies strictly from lockfile
+RUN uv sync --frozen
+
+# Copy source code and other necessary assets (like artifacts if needed for local run, 
+# though in production they might be mounted or pulled from S3. 
+# For this demo, we assume artifacts are generated or volume mapped)
+COPY src/ ./src/
+# We also need the models/ and outputs/ directories if they are pre-computed
+# But usually best to mount them. For simplicity in this logical setup, we'll assume they are mapped via volume in compose.
+
+# Expose port
+EXPOSE 8501
+
+# Run Streamlit
+CMD ["uv", "run", "streamlit", "run", "src/dashboard/app.py", "--server.port", "8501", "--server.address", "0.0.0.0"]
