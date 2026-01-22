@@ -1,3 +1,15 @@
+---
+title: Causal Uplift Engine
+emoji: 🎯
+colorFrom: green
+colorTo: blue
+sdk: docker
+app_port: 7860
+pinned: false
+license: mit
+short_description: Shift focus from "who will churn" to "who can be saved."
+---
+
 # Causal Uplift & Policy Optimization Engine
 
 A production-grade Causal Inference system designed to optimize marketing ROI by identifying **who to target** (Persuadables) and **who to avoid** (Sleeping Dogs).
