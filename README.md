@@ -43,9 +43,9 @@ The system assumes a modern microservices architecture, running entirely in Dock
 
 ```mermaid
 graph LR
-    A[Data Pipeline (Generator)] -->|Parquet| B(T-Learner Training)
-    B -->|Pickle/Parquet| C{Inference API}
-    C -->|REST| D[Streamlit Dashboard]
+    A["Data Pipeline (Generator)"] -->|Parquet| B("T-Learner Training")
+    B -->|Pickle/Parquet| C{"Inference API"}
+    C -->|REST| D["Streamlit Dashboard"]
     B -->|Artifacts| D
 ```
 
