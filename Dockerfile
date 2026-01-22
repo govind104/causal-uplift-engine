@@ -35,8 +35,7 @@ ENV PYTHONPATH="/app:$PYTHONPATH"
 # Copy application code
 COPY src/ src/
 COPY main.py .
-COPY start.sh .
-RUN chmod +x start.sh
+COPY start.py .
 
 # Create directories for data and models
 RUN mkdir -p data/processed models outputs/plots
@@ -57,4 +56,4 @@ ENV API_URL="http://localhost:8000"
 EXPOSE 7860 8000
 
 # Start both services
-CMD ["./start.sh"]
+CMD ["python", "start.py"]

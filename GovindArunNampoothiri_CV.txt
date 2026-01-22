@@ -1,0 +1,55 @@
+Govind Arun Nampoothiri
+Edinburgh, United Kingdom | +44-7741017250 | govind23nampoothiri@gmail.com | LinkedIn | GitHub
+Summary
+MSc Data Science graduate specializing in causal inference and graph neural networks. Architected a Real-Time Fraud
+Detection System achieving a 21% improvement in G-Means over production baselines. Designing experimentation
+frameworks for financial services to optimize retention spend via Causal Uplift Modeling. Strong foundation in
+statistical validation and deployment (Docker/FastAPI). I have the right to work in the UK. Willing to relocate.
+Skills
+Functional Competencies: End-to-End ML Pipeline Development, Production Model Deployment, Model Interpretability
+& Explainability, A/B Testing & Experimentation Design, Cross-functional Collaboration, Statistical
+Modeling, Data Visualization & Dashboarding
+Programming & Tools: Python (Pandas, NumPy, SciPy, Scikit-Learn), PyTorch (including PyTorch Geometric),
+FAISS, SHAP, EconML, DoWhy, MLflow, FastAPI, Docker, Redis, R, SQL, Tableau, Streamlit, Git, CI/CD
+Education
+The University of Edinburgh - MSc Data Science | Grade: Merit Edinburgh, Sep 2024 - Sep 2025
+Modules: Methods for Causal Inference, Machine Learning Systems, Data-driven Business and Behavioural Analytics,
+Machine Learning Practical
+Christ University - BSc Economics, Mathematics, Statistics | CGPA: 3.81/4.0 Bangalore, July 2020 - May 2023
+Modules: Statistical Inference and Methods, Time Series Analysis and Forecasting, Design of Experiments
+Projects
+Banking Customer Retention: Causal Targeting Engine
+• Designing a Causal Inference framework using EconML (Meta-Learners) to transition from standard churn prediction
+to Uplift Modeling, aiming to isolate ”Persuadable” customers and minimize wasted spend on ”Sure Things.”
+• Architecting a validation pipeline incorporating DoWhy for rigorous refutation testing (Placebo Treatment, Random
+Common Cause) to ensure the stability of Conditional Average Treatment Effects (CATE) prior to deployment.
+• Developing an interactive policy dashboard using Streamlit to visualize Qini curves and simulate budget allocation
+scenarios, enabling stakeholders to optimize targeting strategies based on incremental lift.
+Real-Time Payment Fraud Detection System
+• Architected a hybrid AD-RL-GNN framework that integrates Adaptive Majority Downsampling with an autonomous
+RL agent, achieving a 21% improvement in G-Means (57.24%) over baseline by recovering complex fraud patterns
+in highly imbalanced (28:1) data.
+• Engineered a scalable training pipeline using PyTorch Geometric NeighborLoader and FAISS, enabling the processing
+of 590k+ transaction nodes on a single T4 GPU (preventing OOM) while maintaining <30ms P95 inference
+latency for real-time deployment.
+• Deployed production-ready API using FastAPI, Docker, and Redis, incorporating MLflow for model versioning
+and reproducibility, with automated CI/CD pipelines (GitHub Actions), integrated with GNNExplainer to provide
+regulatory-compliant feature attribution for every flagged transaction.
+Work Experience
+FITTLYF | Data Science Intern Nov 2023 - Mar 2024
+• Designed end-to-end A/B testing platform enabling creation, execution, and analysis of experiments, reducing average
+time-to-decision by 40% (from experiment launch to actionable recommendation) through automated statistical
+analysis and streamlined reporting workflows.
+• Accelerated experiment metadata retrieval by 15% via Streamlit-based Central Experiment Management Tool
+within the platform, enabling users to review past experiments and reuse configurations across new A/B tests
+through search and filtering.
+• Engineered A/B and Multivariate Testing tool using NumPy, SciPy, Pandas, Plotly and Streamlit, achieving 25%
+lower false positive rate in statistical tests vs. market solutions (validated via simulation on 1000 synthetic experiments)
+through advanced distribution handling and sequential testing methods.
+• Shipped production A/B testing platform in 6 weeks across data engineering and frontend teams, handling statistical
+computation, API design, and UI/UX workflows end-to-end.
+• Reduced experiment bias investigation time by 10% (validated with 5 internal users) through organization-level and
+experiment-level SRM detection dashboards in Tableau, enabling faster decision-making on whether to continue,
+pause, or invalidate experiments based on real-time sampling health monitoring.
+• Developed Python/SQL backend logic for automated SRM detection with 95% precision and 80% recall, guiding
+users to identify experiment biases before they impact business decisions.
