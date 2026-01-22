@@ -1,150 +1,111 @@
 # Causal Uplift & Policy Optimization Engine
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10-blue" alt="Python">
-  <img src="https://img.shields.io/badge/EconML-0.14-green" alt="EconML">
-  <img src="https://img.shields.io/badge/FastAPI-0.128-teal" alt="FastAPI">
-  <img src="https://img.shields.io/badge/Streamlit-1.53-red" alt="Streamlit">
-  <img src="https://img.shields.io/badge/Docker-Ready-blue" alt="Docker">
-</p>
+A production-grade Causal Inference system designed to optimize marketing ROI by identifying **who to target** (Persuadables) and **who to avoid** (Sleeping Dogs).
 
-> **Traditional models predict churn. This system predicts *persuadability*, saving 20% of marketing budget by ignoring 'Lost Causes'.**
+![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
+![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.95+-009688.svg)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.22+-FF4B4B.svg)
 
-## 🎯 What This Does
+---
 
-This is an end-to-end **Causal Inference System** that:
-1. **Identifies Persuadable Customers** - Those who will convert *because* of your intervention
-2. **Optimizes Budget Allocation** - Target high-uplift customers first
-3. **Provides Transparent Explanations** - Understand *why* segments respond differently
+## 🚀 The Business Problem
+Traditional Churn/Propensity models answer: *"Who is likely to buy?"*  
+**Causal Uplift Logic** answers: *"Who will buy **only if** we intervene?"*
+
+By targeting customers based on **propensity**, companies waste millions on:
+1.  **Sure Things:** Loyal customers who would have bought anyway (Subsidy Cost).
+2.  **Sleeping Dogs:** Customers who react *negatively* to marketing (Churn Cost).
+3.  **Lost Causes:** Customers who will never buy (Efficiency Cost).
+
+### The Solution: "The Hard Market"
+This engine simulates a realistic, difficult market environment where **75% of customers are 'Neutral'** (ignore ads). A traditional model fails here. Our T-Learner identifies the **14.4% Persuadable Segment** (the "Needle in the Haystack"), delivering massive efficiency gains.
+
+---
 
 ## 📊 Key Results
+Based on a 1,000,000-user validation set:
 
-| Metric | Value |
-|--------|-------|
-| **CATE Correlation** | 98.2% |
-| **Top 20% Ranking Accuracy** | 92% |
-| **Projected ROI** | 285% |
+| Metric | Result | Context |
+| :--- | :--- | :--- |
+| **Global Lift** | **3.2x** | Improvement over random targeting. |
+| **Cost Savings** | **~86%** | Savings by ignoring "Neutrals" & "Sleeping Dogs". |
+| **Persuadable Segment** | **14.4%** | The actual targetable audience (Pre-filtered). |
+| **Strategy** | **Avoid Negative Lift** | Explicitly excludes the 10% "Sleeping Dog" segment. |
 
-The model correctly identifies the injected causal structure:
-- **Age**: Younger customers have higher uplift
-- **Loyalty**: Low-loyalty customers are more persuadable
-- **Income**: Higher income increases treatment response
+> *"Targeting everyone costs $10M. Targeting only Persuadables costs $1.4M for similar returns."*
 
-## 🚀 Quick Start
-
-### Option 1: Docker (Recommended)
-```bash
-docker-compose up --build
-```
-- API: http://localhost:8000
-- Dashboard: http://localhost:8501
-
-### Option 2: Local Development
-```bash
-# Install dependencies
-uv sync
-
-# Train model (generates synthetic data)
-uv run python main.py --quick
-
-# Start API
-uv run uvicorn src.api.main:app --port 8000
-
-# Start Dashboard (new terminal)
-uv run streamlit run src/dashboard/app.py
-```
+---
 
 ## 🏗️ Architecture
 
+The system assumes a modern microservices architecture, running entirely in Docker.
+
 ```mermaid
 graph LR
-    A[Synthetic Data] --> B[Preprocessing]
-    B --> C[T-Learner/EconML]
-    C --> D[CATE Predictions]
-    D --> E[FastAPI]
-    D --> F[Visualizations]
-    E --> G[Streamlit Dashboard]
-    F --> G
+    A[Data Pipeline (Generator)] -->|Parquet| B(T-Learner Training)
+    B -->|Pickle/Parquet| C{Inference API}
+    C -->|REST| D[Streamlit Dashboard]
+    B -->|Artifacts| D
 ```
 
-## 📁 Project Structure
+### Tech Stack
+*   **Model**: T-Learner (Meta-Learner) using `XGBoost` base learners.
+*   **API**: `FastAPI` for real-time CATE (Conditional Average Treatment Effect) inference.
+*   **Dashboard**: `Streamlit` for policy simulation and interactive ROI analysis.
+*   **Environment**: `uv` for dependency management, `Docker Compose` for orchestration.
 
-```
-causal-uplift-engine/
-├── src/
-│   ├── data/
-│   │   └── generator.py      # Synthetic data with ground truth
-│   ├── models/
-│   │   └── t_learner.py      # T-Learner wrapper + SHAP
-│   ├── visualization/
-│   │   └── plots.py          # Qini, ROI, Decile plots
-│   ├── api/
-│   │   ├── main.py           # FastAPI endpoints
-│   │   └── schemas.py        # Pydantic models
-│   └── dashboard/
-│       └── app.py            # Streamlit UI
-├── main.py                   # Training pipeline
-├── Dockerfile
-├── docker-compose.yml
-└── pyproject.toml
-```
+---
 
-## 🔌 API Endpoints
+## 🛠️ Quick Start
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/health` | GET | Health check |
-| `/api/predict` | POST | Score individual customer |
-| `/api/optimize/allocate` | POST | Calculate optimal targeting |
-| `/api/explain/global` | GET | Feature importance |
+**Prerequisites:** Docker & Docker Compose.
 
-### Example: Predict Uplift
+### 1. Launch the Stack
+The system comes pre-trained with the "Hard Market" model artifacts.
 ```bash
-curl -X POST http://localhost:8000/api/predict \
-  -H "Content-Type: application/json" \
-  -d '{"features": {"age": 25, "income": 80000, "loyalty_score": 0.1}}'
+docker-compose up --build
 ```
 
-Response:
-```json
-{
-  "customer_id": "unknown",
-  "uplift_score": 0.52,
-  "segment": "Persuadable",
-  "cate_percentile": 99.4
-}
+### 2. Access Interfaces
+*   **Dashboard:** [http://localhost:8501](http://localhost:8501)  
+    *Explore the Qini Curve, ROI Analysis, and Optimal Budget Allocation.*
+*   **API Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)  
+    *Test the `/predict` and `/optimize` endpoints instantly.*
+
+---
+
+## 📂 Project Structure
+
+```text
+src/
+├── api/                 # FastAPI Service
+│   ├── main.py          # Endpoints (Predict, Optimize)
+│   └── schemas.py       # Pydantic Models
+├── dashboard/           # Streamlit App
+│   └── app.py           # Interactive UI & Plotly Viz
+├── data/                # Data Pipeline
+│   └── generator.py     # Quantile-Based Synthetic Generator
+├── models/              # Causal Models
+│   └── t_learner.py     # T-Learner Class & Training Script
+└── visualization/       # Shared Plotting Utils
 ```
 
-## 🧪 Methodology
+---
 
-### Why T-Learner?
-T-Learner avoids the **regularization bias** of S-Learners where weak treatment effects get shrunk to zero - crucial when the treatment signal is subtle.
+## 🔬 Methodology: T-Learner
+We use a **Two-Model (T-Learner)** approach to estimate CATE:
+1.  **$\mu_1(x)$**: Estimates probability of conversion *with* treatment.
+2.  **$\mu_0(x)$**: Estimates probability of conversion *without* treatment.
+3.  **CATE**: $\tau(x) = \mu_1(x) - \mu_0(x)$
 
-### Why Synthetic Data?
-- **Ground Truth Validation**: Real datasets lack true counterfactuals
-- **Interpretable Features**: No anonymized `f1`, `f2` columns
-- **Controlled Causal Structure**: Verifiable that model learns the truth
+### Behavior-Based Segmentation
+Instead of arbitrary deciles, we segment users based on strict lift thresholds:
+*   🟢 **Persuadable** ($\tau > 0.05$): Strong positive reaction. **Target.**
+*   🔴 **Sleeping Dog** ($\tau < -0.05$): Strong negative reaction. **Avoid.**
+*   ⚪ **Neutral** ($-0.05 \le \tau \le 0.05$): No significant reaction. **Ignore.**
 
-### Customer Segments
-| Segment | Percentile | Action |
-|---------|------------|--------|
-| 🟢 Persuadable | >75% | Target first |
-| 🔵 Sure Thing | 50-75% | Will convert anyway |
-| 🟡 Sleeping Dog | 25-50% | Skip if budget-constrained |
-| 🔴 Lost Cause | <25% | Don't waste budget |
+---
 
-## 📈 Visualizations
-
-The training pipeline generates:
-- **Qini Curve**: Cumulative incremental gains
-- **ROI Analysis**: Optimal targeting threshold
-- **Decile Comparison**: Treatment vs Control rates
-- **Causal Quadrants**: Ground truth validation
-
-## 👤 Author
-
-Built as a portfolio project demonstrating causal ML, API development, and interactive dashboards.
-
-## 📄 License
-
-MIT
+## 🛡️ License
+MIT License. Free for educational and portfolio use.
