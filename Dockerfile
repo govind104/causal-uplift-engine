@@ -7,10 +7,8 @@ FROM python:3.10-slim AS builder
 WORKDIR /app
 
 # Install build dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    gcc \
-    && rm -rf /var/lib/apt/lists/*
+# Install uv for faster package management
+RUN pip install uv
 
 # Install uv for faster package management
 RUN pip install uv
@@ -37,6 +35,8 @@ ENV PYTHONPATH="/app:$PYTHONPATH"
 # Copy application code
 COPY src/ src/
 COPY main.py .
+COPY start.sh .
+RUN chmod +x start.sh
 
 # Create directories for data and models
 RUN mkdir -p data/processed models outputs/plots
@@ -50,8 +50,11 @@ COPY --chown=1000:1000 data/ data/
 RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
 USER appuser
 
-# Expose ports
-EXPOSE 8000 8501
+# Environment variables for integration
+ENV API_URL="http://localhost:8000"
 
-# Default command (can be overridden)
-CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Expose ports (7860 is standard for HF Spaces)
+EXPOSE 7860 8000
+
+# Start both services
+CMD ["./start.sh"]
