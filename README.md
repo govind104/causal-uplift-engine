@@ -107,5 +107,20 @@ Instead of arbitrary deciles, we segment users based on strict lift thresholds:
 
 ---
 
+## 📚 References & Inspiration
+
+This project implements modern Uplift Modeling techniques inspired by the following open-source research and implementations:
+
+* **Criteo Uplift Modelling** (Hugh Huyton): Inspiration for the "Treatment vs. Control" visual analysis techniques.
+    * [Link to Kaggle Notebook](https://www.kaggle.com/code/hughhuyton/criteo-uplift-modelling)
+* **Qini Curve Implementation** (Davin Wijaya): Reference for the manual calculation of Area Under Qini Curve (AUQC).
+    * [Link to Kaggle Notebook](https://www.kaggle.com/code/davinwijaya/uplift-modeling-qini-curve-with-python)
+* **RetailHero Uplift** (scikit-uplift): Guided the logic for multi-class segmentation (Persuadables vs. Sleeping Dogs).
+    * [Link to GitHub](https://github.com/maks-sh/scikit-uplift/blob/master/notebooks/RetailHero_EN.ipynb)
+* **Marketing Uplift Demo** (Mai Anh Dang): Provided context for "ROI-based" optimization strategies in retail.
+    * [Link to Kaggle Notebook](https://www.kaggle.com/code/maianhdang/demo-uplift-modeling-in-marketing)
+
+---
+
 ## 🛡️ License
 MIT License. Free for educational and portfolio use.
