@@ -1,12 +1,3 @@
----
-title: Causal Uplift Engine
-emoji: 📈
-colorFrom: blue
-colorTo: indigo
-sdk: docker
-app_port: 7860
----
-
 # Causal Uplift & Policy Optimization Engine
 
 A production-grade Causal Inference system designed to optimize marketing ROI by identifying **who to target** (Persuadables) and **who to avoid** (Sleeping Dogs).
