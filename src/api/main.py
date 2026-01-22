@@ -22,7 +22,7 @@ import joblib
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from .schemas import (
+from src.api.schemas import (
     PredictRequest, PredictResponse,
     AllocationRequest, AllocationResponse,
     GlobalExplanationResponse, FeatureImportance,
