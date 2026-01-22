@@ -115,7 +115,7 @@ This project implements modern Uplift Modeling techniques inspired by the follow
     * [Link to Kaggle Notebook](https://www.kaggle.com/code/hughhuyton/criteo-uplift-modelling)
 * **Qini Curve Implementation** (Davin Wijaya): Reference for the manual calculation of Area Under Qini Curve (AUQC).
     * [Link to Kaggle Notebook](https://www.kaggle.com/code/davinwijaya/uplift-modeling-qini-curve-with-python)
-* **RetailHero Uplift** (scikit-uplift): Guided the logic for multi-class segmentation (Persuadables vs. Sleeping Dogs).
+* **RetailHero Uplift** (Maksim Shevchenko): Guided the logic for multi-class segmentation (Persuadables vs. Sleeping Dogs).
     * [Link to GitHub](https://github.com/maks-sh/scikit-uplift/blob/master/notebooks/RetailHero_EN.ipynb)
 * **Marketing Uplift Demo** (Mai Anh Dang): Provided context for "ROI-based" optimization strategies in retail.
     * [Link to Kaggle Notebook](https://www.kaggle.com/code/maianhdang/demo-uplift-modeling-in-marketing)
