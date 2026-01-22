@@ -66,21 +66,37 @@ graph LR
 
 ---
 
-## 🛠️ Quick Start
+## � Deployment
 
-**Prerequisites:** Docker & Docker Compose.
+This project supports **two deployment modes** to demonstrate both cloud-ready and production-scale architectures.
 
-### 1. Launch the Stack
-The system comes pre-trained with the "Hard Market" model artifacts.
+### Option 1: Single-Container (Hugging Face Spaces / Cloud Run)
+
+A monolithic container running both API and Dashboard. Ideal for demos and single-instance cloud deployments.
+
+```bash
+docker build -t causal-uplift-engine .
+docker run -p 7860:7860 causal-uplift-engine
+```
+
+**Access:**
+- **Dashboard:** [http://localhost:7860](http://localhost:7860)
+
+> **Live Demo:** [Hugging Face Spaces](https://huggingface.co/spaces/govind104/causal-uplift-engine)
+
+---
+
+### Option 2: Microservices (Local Development / Production)
+
+Separate containers for API and Dashboard, orchestrated via Docker Compose. Ideal for local development and production-scale deployments.
+
 ```bash
 docker-compose up --build
 ```
 
-### 2. Access Interfaces
-*   **Dashboard:** [http://localhost:8501](http://localhost:8501)  
-    *Explore the Qini Curve, ROI Analysis, and Optimal Budget Allocation.*
-*   **API Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)  
-    *Test the `/predict` and `/optimize` endpoints instantly.*
+**Access:**
+- **Dashboard:** [http://localhost:8501](http://localhost:8501)
+- **API Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ---
 
