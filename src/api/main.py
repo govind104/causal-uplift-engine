@@ -111,6 +111,11 @@ app.add_middleware(
 # Endpoints
 # ============================================================================
 
+@app.get("/")
+def root_health_check():
+    """Root endpoint for basic connectivity checks."""
+    return {"status": "ok", "service": "Causal Uplift Engine API"}
+
 @app.get("/health", response_model=HealthResponse)
 async def health_check():
     """Health check endpoint."""
